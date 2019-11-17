@@ -2,12 +2,10 @@
 GO := go
 GOBUILD := $(GO) build
 
-all: kprobe execsnoop
+all: kprobe execsnoop uprobe
 
-linux: GOOS=linux
-linux: GOARCH=amd64
-
-linux: all
+linux:
+	GOOS=linux GOARCH=amd64 make all
 
 kprobe:
 	$(GOBUILD) kprobe.go
@@ -15,4 +13,7 @@ kprobe:
 execsnoop:
 	$(GOBUILD) execsnoop.go
 
-.PHONY: all linux kprobe execsnoop
+uprobe:
+	$(GOBUILD) uprobe.go
+
+.PHONY: all linux kprobe execsnoop uprobe
